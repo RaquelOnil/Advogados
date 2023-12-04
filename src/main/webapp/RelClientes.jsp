@@ -1,35 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="UTF-8"%>
-
+<%@ include file="./_header.jsp" %>
 <%@ page import="model.Cliente"%>
 <%@ page import="java.util.ArrayList"%>
 <%
 ArrayList<Cliente> lista = (ArrayList<Cliente>) request.getAttribute("clientes");
+String success = (String) request.getAttribute("success");
+//Pesquisa na tabela de clientes pelo nome e/ou telefone.
+String q = (String) request.getAttribute("q");
+if(q==null)q="";
 %>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Clientes</title>
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-</head>
-<body>
-
-	<h1>Advogados</h1>
-	<hr>
-	<nav>
-		<a href="index.jsp">Início</a> &nbsp;|&nbsp; <a href="CadAdvogado.jsp">Cadastro
-			de Advogado</a> &nbsp;|&nbsp; <a href="CadCliente.jsp">Cadastro de
-			Cliente</a>
-	</nav>
-	<hr>
 
 	<div class="container">
+	<div><!--  Pesquisa na tabela de clientes pelo nome e/ou telefone. -->
+			<form name="buscacliente" action="pesquisacliente">
+			<input type="search" name="q" value="<%=q%>">
+			<button type="submit">pesquisa</button>
+		</form></div>
+
+		<%
+		if (success != null) {
+		%>
+		<div><%=success%></div>
+		<%
+		}
+		%>
+
 		<table class="table table-dark">
 			<thead>
 				<tr>
@@ -54,7 +50,7 @@ ArrayList<Cliente> lista = (ArrayList<Cliente>) request.getAttribute("clientes")
 						href="editarcliente?id=<%=lista.get(i).getIdcliente()%>"
 						onclick="return confirm('Tem certeza que deseja editar?')">Editar</a>
 						&nbsp;|&nbsp; <a
-						href="apagarcliente?id=<%=lista.get(i).getIdcliente()%>"
+						href="apagacliente?id=<%=lista.get(i).getIdcliente()%>"
 						onclick="return confirm('Tem certeza que deseja editar?')">Apagar</a>
 					</td>
 				</tr>
@@ -69,12 +65,4 @@ ArrayList<Cliente> lista = (ArrayList<Cliente>) request.getAttribute("clientes")
 	</div>
 
 
-	<!-- JavaScript (Opcional) -->
-	<!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-</body>
-</html>
+	<%@ include file="./_footer.jsp" %>

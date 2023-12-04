@@ -22,6 +22,14 @@ public class Cliente {
 		this.telefone = telefone;
 		this.status = status;
 	}
+	
+	public Cliente(int idcliente, Date data, String nome, String telefone) {
+		super();
+		this.idcliente = idcliente;
+		this.data = data;
+		this.nome = nome;
+		this.telefone = telefone;
+	}
 
 	public int getIdcliente() {
 		return idcliente;
